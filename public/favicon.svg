@@ -1,0 +1,26 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4c1d95" />
+      <stop offset="100%" stop-color="#0f0a1a" />
+    </radialGradient>
+    <linearGradient id="icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+
+  <!-- fundo arredondado -->
+  <rect width="32" height="32" rx="7" fill="url(#bg)" />
+
+  <!-- bolha de chat -->
+  <rect x="6" y="7" width="20" height="13" rx="4" fill="url(#icon-grad)" />
+
+  <!-- rabo da bolha -->
+  <path d="M9 20 L6 26 L15 20 Z" fill="url(#icon-grad)" />
+
+  <!-- pontinhos de digitação -->
+  <circle cx="11" cy="13.5" r="1.5" fill="white" fill-opacity="0.9" />
+  <circle cx="16" cy="13.5" r="1.5" fill="white" fill-opacity="0.9" />
+  <circle cx="21" cy="13.5" r="1.5" fill="white" fill-opacity="0.9" />
+</svg>

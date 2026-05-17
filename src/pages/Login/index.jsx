@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+
+import { getGoogleRedirectResult, loginWithGoogle } from "../../services/firebase";
+import logoSrc from "/icons/icon-512x512.png";
+
 import {
   Actions,
   Brand,
@@ -25,25 +30,10 @@ import {
   TitleAccent,
 } from "./styles";
 
-import { loginWithGoogle } from "../../services/firebase";
-import logoSrc from "/icons/icon-512x512.png";
-
 export function Login({ onGuestAccess }) {
-  async function handleGoogleLogin() {
+  function handleGoogleLogin() {
     try {
-      const user = await loginWithGoogle();
-
-      localStorage.setItem(
-        "@devcore:user",
-        JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          role: "user",
-        })
-      );
-
-      onGuestAccess();
+      loginWithGoogle();
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +52,32 @@ export function Login({ onGuestAccess }) {
 
     onGuestAccess();
   }
+
+  useEffect(() => {
+    async function handleRedirectLogin() {
+      try {
+        const user = await getGoogleRedirectResult();
+
+        if (!user) return;
+
+        localStorage.setItem(
+          "@devcore:user",
+          JSON.stringify({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL,
+            role: "user",
+          })
+        );
+
+        onGuestAccess();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    handleRedirectLogin();
+  }, [onGuestAccess]);
 
   return (
     <Container>
@@ -192,6 +208,7 @@ export function GuestIcon() {
         stroke="currentColor"
         strokeWidth="1.3"
       />
+
       <path
         d="M2.5 13.5C2.5 11.015 5.015 9 8 9s5.5 2.015 5.5 4.5"
         stroke="currentColor"

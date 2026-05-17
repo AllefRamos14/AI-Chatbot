@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
+  getAuth,
+  getRedirectResult,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  signOut,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -21,10 +22,14 @@ export const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
 
-export async function loginWithGoogle() {
-  const result = await signInWithPopup(auth, googleProvider);
+export function loginWithGoogle() {
+  return signInWithRedirect(auth, googleProvider);
+}
 
-  return result.user;
+export async function getGoogleRedirectResult() {
+  const result = await getRedirectResult(auth);
+
+  return result?.user || null;
 }
 
 export async function logoutFirebase() {

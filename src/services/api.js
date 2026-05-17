@@ -19,7 +19,11 @@ export async function sendMessageToAPI(payload, onChunk) {
   });
 
   if (!response.ok) {
-    throw new Error("Não foi possível gerar uma resposta.");
+    const errorText = await response.text();
+
+    console.error("Erro da API:", errorText);
+
+    throw new Error(errorText || "Não foi possível gerar uma resposta.");
   }
 
   const reader = response.body.getReader();

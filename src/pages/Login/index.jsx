@@ -45,9 +45,9 @@ export function Login({ onGuestAccess }) {
       })
     );
 
-    toast.success(`👋 Bem-vindo de volta, ${user.displayName}!`, {
-      autoClose: 3000,
-    });
+    toast.success(`👋 Olá, ${user.displayName}! Login realizado com sucesso.`, {
+  autoClose: 3000,
+});
 
     onGuestAccess();
   } catch (error) {
@@ -68,9 +68,9 @@ function handleGuestAccess() {
     })
   );
 
-  toast.info("👋 Bem-vindo! Você entrou como visitante.", {
-    autoClose: 3000,
-  });
+  toast.info("👋 Olá! Você entrou como visitante.", {
+  autoClose: 3000,
+});
 
   onGuestAccess();
 }

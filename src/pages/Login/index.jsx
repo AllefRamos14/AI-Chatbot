@@ -1,6 +1,5 @@
+import { toast } from "react-toastify";
 import { loginWithGoogle } from "../../services/firebase";
-import logoSrc from "/icons/icon-512x512.png";
-
 import {
   Actions,
   Brand,
@@ -27,41 +26,56 @@ import {
   Title,
   TitleAccent,
 } from "./styles";
+import logoSrc from "/icons/icon-512x512.png";
 
 export function Login({ onGuestAccess }) {
+
+  
   async function handleGoogleLogin() {
-    try {
-      const user = await loginWithGoogle();
+  try {
+    const user = await loginWithGoogle();
 
-      localStorage.setItem(
-        "@devcore:user",
-        JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          role: "user",
-        })
-      );
-
-      onGuestAccess();
-    } catch (error) {
-      console.log("Erro no login Google:", error);
-    }
-  }
-
-  function handleGuestAccess() {
     localStorage.setItem(
       "@devcore:user",
       JSON.stringify({
-        name: "Visitante",
-        email: null,
-        photo: null,
-        role: "guest",
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        role: "user",
       })
     );
 
+    toast.success(`👋 Bem-vindo de volta, ${user.displayName}!`, {
+      autoClose: 3000,
+    });
+
     onGuestAccess();
+  } catch (error) {
+    console.log("Erro no login Google:", error);
+
+    toast.error("Não foi possível fazer login com Google.");
   }
+}
+
+function handleGuestAccess() {
+  localStorage.setItem(
+    "@devcore:user",
+    JSON.stringify({
+      name: "Visitante",
+      email: null,
+      photo: null,
+      role: "guest",
+    })
+  );
+
+  toast.info("👋 Bem-vindo! Você entrou como visitante.", {
+    autoClose: 3000,
+  });
+
+  onGuestAccess();
+}
+
+  
 
   return (
     <Container>

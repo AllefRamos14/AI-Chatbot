@@ -14,11 +14,14 @@ import {
   UploadButton,
 } from "./styles";
 
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+
 export function ChatInput({ input, setInput, loading, sendMessage }) {
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -41,18 +44,29 @@ export function ChatInput({ input, setInput, loading, sendMessage }) {
     setInput(event.target.value);
   }
 
+  function validateImage(file) {
+    if (!file.type.startsWith("image/")) {
+      alert("Envie apenas arquivos de imagem.");
+      return false;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      alert("A imagem deve ter no máximo 5MB.");
+      return false;
+    }
+
+    return true;
+  }
+
   function handleImageChange(event) {
     const file = event.target.files?.[0];
-   
 
     if (!file) return;
 
-     const max_image_size = 2 * 1024 * 1024; // 2MB 
-
-     if (file.size > max_image_size) {
-    alert("A imagem deve ter no máximo 2MB.");
-    return;
-  }
+    if (!validateImage(file)) {
+      event.target.value = "";
+      return;
+    }
 
     if (selectedImage?.previewUrl) {
       URL.revokeObjectURL(selectedImage.previewUrl);
@@ -77,26 +91,20 @@ export function ChatInput({ input, setInput, loading, sendMessage }) {
   }
 
   function handleSubmit() {
-  if ((!input.trim() && !selectedImage) || loading) return;
+    if ((!input.trim() && !selectedImage) || loading) return;
 
-  const imageFile = selectedImage?.file || null;
+    sendMessage({
+      text: input.trim(),
+      image: selectedImage?.file || null,
+    });
 
-  sendMessage({
-    text: input.trim(),
-    image: imageFile,
-  });
+    setInput("");
+    removeImage();
 
-  setInput("");
-  setSelectedImage(null);
-
-  if (fileInputRef.current) {
-    fileInputRef.current.value = "";
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
   }
-
-  if (textareaRef.current) {
-    textareaRef.current.style.height = "auto";
-  }
-}
 
   function handleKeyDown(event) {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -105,49 +113,43 @@ export function ChatInput({ input, setInput, loading, sendMessage }) {
     }
   }
 
-  const [dragActive, setDragActive] = useState(false);
+  function handleDrop(event) {
+    event.preventDefault();
+    setDragActive(false);
 
-function handleDrop(event) {
-  event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
 
-  setDragActive(false);
+    if (!file) return;
 
-  const file = event.dataTransfer.files?.[0];
+    if (!validateImage(file)) return;
 
-  if (!file) return;
+    if (selectedImage?.previewUrl) {
+      URL.revokeObjectURL(selectedImage.previewUrl);
+    }
 
-  if (!file.type.startsWith("image/")) return;
+    setSelectedImage({
+      file,
+      previewUrl: URL.createObjectURL(file),
+    });
+  }
 
-  setSelectedImage({
-    file,
-    previewUrl: URL.createObjectURL(file),
-  });
-}
+  function handleDragOver(event) {
+    event.preventDefault();
+    setDragActive(true);
+  }
 
-function handleDragOver(event) {
-  event.preventDefault();
-
-  setDragActive(true);
-}
-
-function handleDragLeave() {
-  setDragActive(false);
-}
+  function handleDragLeave() {
+    setDragActive(false);
+  }
 
   return (
     <InputContainer
-    onDrop={handleDrop}
-    onDragOver={handleDragOver}
-    onDragLeave={handleDragLeave}
-    $dragActive={dragActive}
-    
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      $dragActive={dragActive}
     >
-
-{dragActive && (
-  <DragText>
-    Solte a imagem aqui 📷
-  </DragText>
-)}
+      {dragActive && <DragText>Solte a imagem aqui 📷</DragText>}
 
       {selectedImage && (
         <ImagePreviewContainer>
@@ -167,7 +169,7 @@ function handleDragLeave() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*,.pdf"
+          accept="image/*"
           hidden
           onChange={handleImageChange}
         />

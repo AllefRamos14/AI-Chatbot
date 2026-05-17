@@ -1,5 +1,6 @@
 import { Download, LogOut, Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+
 import {
   ExportButton,
   HeaderActions,
@@ -18,6 +19,22 @@ import {
   UserPill,
 } from "./styles";
 
+function getUserFromStorage() {
+  const storedUser = localStorage.getItem("@devcore:user");
+
+  if (!storedUser) return null;
+
+  try {
+    return JSON.parse(storedUser);
+  } catch (error) {
+    console.error("Erro ao ler usuário:", error);
+
+    localStorage.removeItem("@devcore:user");
+
+    return null;
+  }
+}
+
 export function Header({
   totalTokens,
   onMenuClick,
@@ -29,7 +46,7 @@ export function Header({
 }) {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  const user = JSON.parse(localStorage.getItem("@devcore:user"));
+  const user = getUserFromStorage();
 
   const initials = user?.name
     ? user.name
@@ -55,7 +72,11 @@ export function Header({
 
   return (
     <HeaderContainer>
-      <MenuButton type="button" onClick={onMenuClick} aria-label="Abrir menu">
+      <MenuButton
+        type="button"
+        onClick={onMenuClick}
+        aria-label="Abrir menu"
+      >
         <Menu size={18} />
       </MenuButton>
 
@@ -70,6 +91,7 @@ export function Header({
             <span className="dot-ring2" />
             <span className="dot-core" />
           </span>
+
           {isOnline ? "Online" : "Offline"}
         </Status>
       </HeaderInfo>
@@ -90,6 +112,7 @@ export function Header({
               <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44l-3.45-3.45a2.5 2.5 0 0 1 3.54-3.54l.37.37V7a2.5 2.5 0 0 1 2-2.45" />
               <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44l3.45-3.45a2.5 2.5 0 0 0-3.54-3.54l-.37.37V7a2.5 2.5 0 0 0-2-2.45" />
             </svg>
+
             {totalTokens.toLocaleString()}
           </TokenBadge>
         )}
@@ -111,20 +134,28 @@ export function Header({
           aria-label="Alternar tema"
           title="Alternar tema"
         >
-          {themeMode === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+          {themeMode === "dark" ? (
+            <Sun size={15} />
+          ) : (
+            <Moon size={15} />
+          )}
         </ThemeButton>
 
         <UserPill>
           <UserMeta>
             <strong>{user?.name || "Visitante"}</strong>
-          
           </UserMeta>
 
           <UserArea>
             {user?.photo ? (
-              <UserAvatar src={user.photo} alt={user.name} />
+              <UserAvatar
+                src={user.photo}
+                alt={user.name}
+              />
             ) : (
-              <UserInitials>{initials}</UserInitials>
+              <UserInitials>
+                {initials}
+              </UserInitials>
             )}
           </UserArea>
         </UserPill>

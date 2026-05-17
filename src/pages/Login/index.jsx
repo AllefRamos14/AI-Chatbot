@@ -22,34 +22,46 @@ import {
   SeparatorLabel,
   SeparatorLine,
   Title,
-  TitleAccent
+  TitleAccent,
 } from "./styles";
 
 import { loginWithGoogle } from "../../services/firebase";
 import logoSrc from "/icons/icon-512x512.png";
 
 export function Login({ onGuestAccess }) {
+  async function handleGoogleLogin() {
+    try {
+      const user = await loginWithGoogle();
 
-async function handleGoogleLogin() {
-  try {
-    const user = await loginWithGoogle();
+      localStorage.setItem(
+        "@devcore:user",
+        JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          role: "user",
+        })
+      );
 
+      onGuestAccess();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleGuestAccess() {
     localStorage.setItem(
       "@devcore:user",
       JSON.stringify({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
+        name: "Visitante",
+        email: null,
+        photo: null,
+        role: "guest",
       })
     );
 
     onGuestAccess();
-
-  } catch (error) {
-    console.log(error);
   }
-}
-  
 
   return (
     <Container>
@@ -58,8 +70,7 @@ async function handleGoogleLogin() {
       <Grid />
 
       <Card>
-
-<DragHandle /> 
+        <DragHandle />
 
         <LogoImage src={logoSrc} alt="DevCore AI" />
 
@@ -73,12 +84,14 @@ async function handleGoogleLogin() {
         </Eyebrow>
 
         <Title>
-          Bem-vindo de volta.<br />
+          Bem-vindo de volta.
+          <br />
           <TitleAccent>Entre para continuar.</TitleAccent>
         </Title>
 
         <Description>
-          Salve conversas, sincronize histórico e personalize sua experiência com IA.
+          Salve conversas, sincronize histórico e personalize sua experiência
+          com IA.
         </Description>
 
         <Features>
@@ -88,12 +101,14 @@ async function handleGoogleLogin() {
             </FeatureCheck>
             Histórico salvo
           </Feature>
+
           <Feature>
             <FeatureCheck>
               <CheckIcon />
             </FeatureCheck>
             Multi-dispositivo
           </Feature>
+
           <Feature>
             <FeatureCheck>
               <CheckIcon />
@@ -109,12 +124,12 @@ async function handleGoogleLogin() {
         </Separator>
 
         <Actions>
-          <GoogleButton onClick={handleGoogleLogin}>
+          <GoogleButton type="button" onClick={handleGoogleLogin}>
             <GoogleIcon />
             Entrar com Google
           </GoogleButton>
 
-          <GuestButton onClick={onGuestAccess}>
+          <GuestButton type="button" onClick={handleGuestAccess}>
             <GuestIcon />
             Continuar como visitante
           </GuestButton>
@@ -170,7 +185,13 @@ export function GoogleIcon() {
 export function GuestIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="5.5" r="2.5" stroke="currentColor" strokeWidth="1.3" />
+      <circle
+        cx="8"
+        cy="5.5"
+        r="2.5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
       <path
         d="M2.5 13.5C2.5 11.015 5.015 9 8 9s5.5 2.015 5.5 4.5"
         stroke="currentColor"

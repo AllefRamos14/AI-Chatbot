@@ -185,55 +185,6 @@ export function useChat() {
   setError("");
   setLoading(true);
 
-//   try {
-//     const messagesToAPI =
-//       updatedMessages.slice(
-//         -MAX_MESSAGES_TO_API
-//       );
-
-//     // const payload = {
-//     //   messages: messagesToAPI,
-//     //   image,
-//     // };
-
-//     const data =
-//       await sendMessageToAPI({
-//       messages: messagesToAPI,
-//       image: imageBase64,
-//   });
-
-//     const assistantMessage = {
-//       role: "assistant",
-//       content: data.reply || "Sem resposta",
-//       time: getTime(),
-//       // tokens: data.tokens || 0,
-//     };
-
-//     updateActiveChat((chat) => ({
-//       ...chat,
-
-//       messages: [
-//         ...updatedMessages,
-//         assistantMessage,
-//       ],
-
-//       totalTokens:
-//         chat.totalTokens +
-//         Number(data?.tokens || 0),
-
-//       updatedAt:
-//         new Date().toISOString(),
-//     }));
-//   } catch (error) {
-//     setError(
-//       error.message.includes("fetch")
-//         ? "Erro de conexão. Verifique sua internet."
-//         : error.message
-//     );
-//   } finally {
-//     setLoading(false);
-//   }
-// }
 
 try {
   const messagesToAPI =

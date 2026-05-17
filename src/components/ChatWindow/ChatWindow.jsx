@@ -68,7 +68,7 @@ export function ChatWindow({ messages, loading, sendMessage,updateMessageContent
         <>
           {messages.map((message) => (
             <MessageBubble
-              // key={`${message.role}-${message.time}-${index}`}
+            
               key={message.id}
 
               message={message}

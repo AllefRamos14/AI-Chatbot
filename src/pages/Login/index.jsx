@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-
-import { getGoogleRedirectResult, loginWithGoogle } from "../../services/firebase";
+import { loginWithGoogle } from "../../services/firebase";
 import logoSrc from "/icons/icon-512x512.png";
 
 import {
@@ -31,11 +29,23 @@ import {
 } from "./styles";
 
 export function Login({ onGuestAccess }) {
-  function handleGoogleLogin() {
+  async function handleGoogleLogin() {
     try {
-      loginWithGoogle();
+      const user = await loginWithGoogle();
+
+      localStorage.setItem(
+        "@devcore:user",
+        JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          role: "user",
+        })
+      );
+
+      onGuestAccess();
     } catch (error) {
-      console.log(error);
+      console.log("Erro no login Google:", error);
     }
   }
 
@@ -52,32 +62,6 @@ export function Login({ onGuestAccess }) {
 
     onGuestAccess();
   }
-
-  useEffect(() => {
-    async function handleRedirectLogin() {
-      try {
-        const user = await getGoogleRedirectResult();
-
-        if (!user) return;
-
-        localStorage.setItem(
-          "@devcore:user",
-          JSON.stringify({
-            name: user.displayName,
-            email: user.email,
-            photo: user.photoURL,
-            role: "user",
-          })
-        );
-
-        onGuestAccess();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    handleRedirectLogin();
-  }, [onGuestAccess]);
 
   return (
     <Container>

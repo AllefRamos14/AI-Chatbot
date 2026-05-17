@@ -66,7 +66,7 @@ Este projeto foi construído aplicando conceitos utilizados em aplicações reai
 ## 🖥️ Preview
 
 <p align="center">
-  <img src="./src/assets/preview.webp" width="100%" />
+  <img src="./public/tela-de-home.webp" width="100%" />
 </p>
 
 ---

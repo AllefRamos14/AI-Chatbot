@@ -16,14 +16,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
       <App />
 
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        theme="dark"
-        pauseOnHover
-        newestOnTop
-      /> */}
-
       <ToastContainer
   position={window.innerWidth <= 768 ? "bottom-center" : "top-right"}
   autoClose={2500}

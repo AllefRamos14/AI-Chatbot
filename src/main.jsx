@@ -16,13 +16,31 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
       <App />
 
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={3000}
         theme="dark"
         pauseOnHover
         newestOnTop
-      />
+      /> */}
+
+      <ToastContainer
+  position={window.innerWidth <= 768 ? "bottom-center" : "top-right"}
+  autoClose={2500}
+  theme="dark"
+  pauseOnHover
+  newestOnTop
+  closeOnClick
+  draggable
+  limit={3}
+  toastStyle={{
+    width: window.innerWidth <= 768 ? "90vw" : "350px",
+    borderRadius: "14px",
+    fontSize: window.innerWidth <= 768 ? "14px" : "15px",
+    padding: "12px",
+    marginBottom: "10px",
+  }}
+/>
     </ThemeProvider>
   </React.StrictMode>
 );

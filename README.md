@@ -60,8 +60,8 @@ Este projeto foi construído aplicando conceitos utilizados em aplicações reai
 <h2>📸 Preview</h2>
 
 <p align="center">
-  <img src="./public/previews/home-preview.webp" width="48%" />
-  <img src="./public/previews/login-preview.webp" width="48%" />
+  <img src="./public/previews/preview-tela-de-home.webp" width="48%" />
+  <img src="./public/previews/preview-tela-de-login.webp" width="48%" />
 </p>
 
 ---

@@ -66,17 +66,26 @@ googleProvider.setCustomParameters({
 });
 
 export async function loginWithGoogle() {
-  await signInWithRedirect(auth, googleProvider);
+  try {
+    await signInWithRedirect(auth, googleProvider);
+  } catch (error) {
+    console.error("Erro no login Google:", error.code, error.message);
+  }
 }
 
 export async function checkGoogleRedirect() {
-  const result = await getRedirectResult(auth);
+  try {
+    const result = await getRedirectResult(auth);
 
-  if (result) {
-    return result.user;
+    if (result) {
+      return result.user;
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Erro no redirect Google:", error.code, error.message);
+    return null;
   }
-
-  return null;
 }
 
 export async function logoutFirebase() {

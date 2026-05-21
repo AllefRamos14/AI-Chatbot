@@ -18,12 +18,6 @@ Chatbot inteligente desenvolvido com React + IA, focado em experiência moderna,
 <br/>
 <br/>
 
-```txt
-🤖 AI Chatbot
-Seu assistente inteligente para programação,
-React, JavaScript, APIs e desenvolvimento web moderno.
-```
-
 </div>
 
 ---
@@ -63,10 +57,11 @@ Este projeto foi construído aplicando conceitos utilizados em aplicações reai
 
 ---
 
-## 🖥️ Preview
+<h2>📸 Preview</h2>
 
 <p align="center">
-  <img src="./public/tela-de-home.webp" width="100%" />
+  <img src="./public/previews/home-preview.webp" width="48%" />
+  <img src="./public/previews/login-preview.webp" width="48%" />
 </p>
 
 ---

@@ -1,48 +1,8 @@
-// import { initializeApp } from "firebase/app";
-// import {
-//   getAuth,
-//   GoogleAuthProvider,
-//   signInWithPopup,
-//   signOut,
-// } from "firebase/auth";
-
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-//   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-//   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-//   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-// };
-
-// const app = initializeApp(firebaseConfig);
-
-// export const auth = getAuth(app);
-
-// const googleProvider = new GoogleAuthProvider();
-
-// googleProvider.setCustomParameters({
-//   prompt: "select_account",
-// });
-
-// export async function loginWithGoogle() {
-//   const result = await signInWithPopup(auth, googleProvider);
-
-//   return result.user;
-// }
-
-// export async function logoutFirebase() {
-//   await signOut(auth);
-// }
-
-
 import { initializeApp } from "firebase/app";
-
 import {
   getAuth,
-  getRedirectResult,
   GoogleAuthProvider,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 
@@ -66,26 +26,9 @@ googleProvider.setCustomParameters({
 });
 
 export async function loginWithGoogle() {
-  try {
-    await signInWithRedirect(auth, googleProvider);
-  } catch (error) {
-    console.error("Erro no login Google:", error.code, error.message);
-  }
-}
+  const result = await signInWithPopup(auth, googleProvider);
 
-export async function checkGoogleRedirect() {
-  try {
-    const result = await getRedirectResult(auth);
-
-    if (result) {
-      return result.user;
-    }
-
-    return null;
-  } catch (error) {
-    console.error("Erro no redirect Google:", error.code, error.message);
-    return null;
-  }
+  return result.user;
 }
 
 export async function logoutFirebase() {

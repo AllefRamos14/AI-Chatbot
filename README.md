@@ -175,12 +175,8 @@ VITE_API_URL=http://localhost:3001
 
 ## 🚀 Melhorias futuras
 
-- [ ] Upload de imagens
-- [ ] Exportar conversas
 - [ ] Sistema de múltiplos chats
 - [ ] Streaming de respostas
-- [ ] Temas Dark/Light
-- [ ] Login de usuários
 - [ ] Banco de dados
 - [ ] Compartilhamento de conversa
 

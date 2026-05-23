@@ -42,18 +42,20 @@ Este projeto foi construído aplicando conceitos utilizados em aplicações reai
 
 ## ✨ Funcionalidades
 
-✅ Conversas em tempo real  
-✅ Integração com OpenRouter API  
-✅ Histórico de mensagens  
-✅ Conversas salvas automaticamente  
-✅ Auto Scroll  
-✅ Indicador de digitação  
-✅ Renderização Markdown  
-✅ Destaque de sintaxe para códigos  
-✅ Blocos de código formatados  
-✅ Interface responsiva  
-✅ Persistência com LocalStorage  
-✅ Layout moderno
+- 💬 Conversas em tempo real com IA
+- 🤖 Integração com a OpenRouter API
+- 🕘 Histórico de conversas persistente
+- 💾 Salvamento automático das mensagens
+- 🔄 Auto scroll automático
+- ⌨️ Indicador visual de digitação
+- 📝 Suporte a Markdown nas respostas
+- 💻 Destaque de sintaxe para códigos
+- 📦 Blocos de código formatados
+- 🌙 Alternância entre tema Dark e Light
+- 📱 Interface totalmente responsiva
+- 🗂️ Persistência de dados com LocalStorage
+- 🔐 Sistema de login/autenticação
+- 🎨 Layout moderno e experiência intuitiva
 
 ---
 

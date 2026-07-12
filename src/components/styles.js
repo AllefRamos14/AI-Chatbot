@@ -2,26 +2,6 @@ import styled from "styled-components";
 
 export const AppContainer = styled.div`
 
-  /* height: 100vh;       
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-
-  background:
-    radial-gradient(
-      ellipse 60% 50% at 20% 10%,
-      rgba(120, 80, 255, 0.12) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 50% 40% at 80% 80%,
-      rgba(0, 200, 180, 0.08) 0%,
-      transparent 60%
-    ),
-    ${({ theme }) => theme.colors.background}; */
-
  height: 100vh;
   width: 100%;
 
@@ -46,14 +26,6 @@ export const AppContainer = styled.div`
 `;
 
 export const ChatContainer = styled.main`
-
-  /* width: 100%;
-  max-width: 760px;
-  flex: 1;
-  min-height: 0;        
-  display: flex;
-  flex-direction: column;
-  padding: 0 1.5rem; */
 
    width: 100%;
   max-width: 960px;

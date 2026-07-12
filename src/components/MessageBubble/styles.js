@@ -4,6 +4,7 @@ export const MessageContainer = styled.div`
   display: flex;
   gap: 0.8rem;
   flex-direction: ${({ $isUser }) => ($isUser ? "row-reverse" : "row")};
+  
 `;
 
 export const Avatar = styled.div`
@@ -59,6 +60,7 @@ export const MarkdownHeading = styled.h3`
 export const MarkdownList = styled.ul`
   margin: 0.25rem 0 0.5rem;
   padding-left: 1.2rem;
+  
 
   &:last-child {
     margin-bottom: 0;
@@ -68,6 +70,7 @@ export const MarkdownList = styled.ul`
 export const MarkdownListItem = styled.li`
   margin-bottom: 0.25rem;
   font-size: 0.95rem;
+  
 
   &::marker {
     color: ${({ theme }) => theme.colors.primary};
@@ -93,6 +96,7 @@ export const CodeBlock = styled.pre`
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.85rem;
   line-height: 1.6;
+  color: #ffffffe2;
 
   &:last-child {
     margin-bottom: 0;
@@ -167,6 +171,8 @@ export const EditTextarea = styled.textarea`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary};
   }
+
+
 `;
 
 export const EditActions = styled.div`
